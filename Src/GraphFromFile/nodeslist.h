@@ -30,19 +30,28 @@ using std::unique_ptr;
 */
 
 
-class NodesFromFile
+class NodesListFromFile
 {
 public:
-    NodesFromFile(std::string filename, int rectWidht, int rectHeigth);
-    QPointF getPosition(int nodeNumber);
-    int getNodeRadius();
-    bool isConnected(unsigned nodeNumber1, unsigned nodeNumber2);
+    NodesListFromFile(std::string filename, int rectWidht, int rectHeigth);
+
+    QPointF getPosition(int nodeNumber) const;
+    bool isConnected(unsigned nodeNumber1, unsigned nodeNumber2) const;
+
     void setNewFile(std::string filename);
-    void setNewSizeOfArea(int rectWidht, int rectHeigth, int nodeRadius);
-    ~NodesFromFile();
+
+    void setNewSizeOfArea(int rectWidht, int rectHeigth);
+    int getRectWidht() const;
+    void setRectWidht(int rectWidht);
+    int getRectHeigth() const;
+    void setRectHeigth(int rectHeigth);
+    int getNodeRadius() const;
+
+    int getSize() const;
+    ~NodesListFromFile();
 private:
     void calculateNodeRadius();
-    int rectWidht, rectHeigth, nodeRadius, cellWidth, cellHeigth;
+    int rectWidht_, rectHeigth_, nodeRadius_, cellWidth_, cellHeigth_;
     unique_ptr<Matrix> NodePositionOnMatrix;
     unique_ptr<Matrix> AdjacencyMatrix;
 };

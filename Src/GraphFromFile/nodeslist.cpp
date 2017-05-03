@@ -1,36 +1,34 @@
 #include "nodeslist.h"
 
-NodesFromFile::NodesFromFile(std::string filename, int rectWidht, int rectHeigth)
+NodesListFromFile::NodesListFromFile(std::string filename, int rectWidht, int rectHeigth) :
+    rectWidht_(rectWidht), rectHeigth_(rectHeigth)
 {
-    this->rectWidht  = rectWidht;
-    this->rectHeigth = rectHeigth;
-    this->nodeRadius = nodeRadius;
     setNewFile(filename);
 }
 
-QPointF NodesFromFile::getPosition(int nodeNumber)
+QPointF NodesListFromFile::getPosition(int nodeNumber) const
 {
     int xOfRow = 0, yOfCol = 0;
     for (int i = NodePositionOnMatrix->size1(); i > 0; --i){
         for (int j = NodePositionOnMatrix->size2(); j > 0; --j){
             if (NodePositionOnMatrix->at_element(i, j) == nodeNumber){
                 xOfRow = i; yOfCol = j;
-                goto coordinateFind;
+                goto coordinateFinded;
             }
         }
     }
-coordinateFind:
-    return QPointF(cellWidth * (xOfRow + 0.5), cellHeigth * (yOfCol + 0.5));
+coordinateFinded:
+    return QPointF(cellWidth_ * (xOfRow + 0.5), cellHeigth_ * (yOfCol + 0.5));
 }
 
 
 
-bool NodesFromFile::isConnected(unsigned nodeNumber1, unsigned nodeNumber2)
+bool NodesListFromFile::isConnected(unsigned nodeNumber1, unsigned nodeNumber2) const
 {
     return AdjacencyMatrix->at_element(nodeNumber1, nodeNumber2);
 }
 
-void NodesFromFile::setNewFile(std::string filename)
+void NodesListFromFile::setNewFile(std::string filename)
 {
     NodePositionOnMatrix.reset();
     AdjacencyMatrix.reset();
@@ -41,23 +39,54 @@ void NodesFromFile::setNewFile(std::string filename)
     calculateNodeRadius();
 }
 
-void NodesFromFile::setNewSizeOfArea(int rectWidht, int rectHeigth, int nodeRadius)
-{
-    this->rectWidht = rectWidht; this->rectHeigth = rectHeigth; this->nodeRadius = nodeRadius;
-    calculateNodeRadius();
-}
-
-NodesFromFile::~NodesFromFile()
-{}
-
-void NodesFromFile::calculateNodeRadius()
+void NodesListFromFile::calculateNodeRadius()
 {
     int numOfGridRows = AdjacencyMatrix->size1();
     int numOfGridCols = AdjacencyMatrix->size2();
 
-    cellWidth = rectWidht   / numOfGridCols;
-    cellHeigth = rectHeigth / numOfGridRows;
+    cellWidth_ = rectWidht_   / numOfGridCols;
+    cellHeigth_ = rectHeigth_ / numOfGridRows;
 
-    //Diameter = 50% of cell area
-    nodeRadius = (cellWidth <= cellHeigth) ? cellWidth * 0.5 / 2 : cellHeigth * 0.5 / 2;
+    //Diameter = 50% of cell max heigth||width
+    nodeRadius_ = (cellWidth_ <= cellHeigth_) ? cellWidth_ * 0.5 / 2 : cellHeigth_ * 0.5 / 2;
 }
+
+void NodesListFromFile::setNewSizeOfArea(int rectWidht, int rectHeigth)
+{
+    setRectWidht(rectWidht);
+    setRectHeigth(rectHeigth);
+    calculateNodeRadius();
+}
+
+int NodesListFromFile::getNodeRadius() const
+{
+    return nodeRadius_;
+}
+
+int NodesListFromFile::getSize() const
+{
+    return AdjacencyMatrix->size1();
+}
+
+int NodesListFromFile::getRectHeigth() const
+{
+    return rectHeigth_;
+}
+
+void NodesListFromFile::setRectHeigth(int rectHeigth)
+{
+    rectHeigth_ = rectHeigth;
+}
+
+int NodesListFromFile::getRectWidht() const
+{
+    return rectWidht_;
+}
+
+void NodesListFromFile::setRectWidht(int rectWidht)
+{
+    rectWidht_ = rectWidht;
+}
+
+NodesListFromFile::~NodesListFromFile()
+{}
