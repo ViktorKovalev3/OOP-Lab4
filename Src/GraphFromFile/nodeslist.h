@@ -7,19 +7,21 @@
 
 using std::unique_ptr;
 /*
- * Adjacency matrix
- * For example {1}:
- * [4, 4]
- * ((1, 1, 1, 0),
- *  (0, 0, 0, 0),
- *  (1, 1, 0, 0),
- *  (1, 1, 0, 0))
  * Node position on rectangle area
  * in matrix representation:
  * [2,2]
  * ((0, 2),
  *  (1, 3))
- * For example, for {1} it's look like:
+ *
+ * Adjacency matrix
+ * For example {1}:
+ * [4, 4]
+ * ((1, 1, 1, 0),
+ *  (0, 0, 0, 0),
+ *  (1, 0, 0, 0),
+ *  (0, 0, 0, 0))
+ *
+ * For example, it's look like:
  *   _
  *  | |
  * \/\/
