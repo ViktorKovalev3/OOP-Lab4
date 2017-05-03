@@ -9,8 +9,8 @@ NodesListFromFile::NodesListFromFile(std::string filename, int rectWidht, int re
 QPointF NodesListFromFile::getPosition(int nodeNumber) const
 {
     int xOfRow = 0, yOfCol = 0;
-    for (int i = NodePositionOnMatrix->size1(); i > 0; --i){
-        for (int j = NodePositionOnMatrix->size2(); j > 0; --j){
+    for (int i = NodePositionOnMatrix->size1() - 1; i > 0; --i){
+        for (int j = NodePositionOnMatrix->size2() - 1; j > 0; --j){
             if (NodePositionOnMatrix->at_element(i, j) == nodeNumber){
                 xOfRow = i; yOfCol = j;
                 goto coordinateFinded;
