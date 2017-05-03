@@ -1,4 +1,5 @@
 #include "nodeslist.h"
+#include <QDebug>
 
 NodesListFromFile::NodesListFromFile(std::string filename, int rectWidht, int rectHeigth) :
     rectWidht_(rectWidht), rectHeigth_(rectHeigth)
@@ -8,17 +9,18 @@ NodesListFromFile::NodesListFromFile(std::string filename, int rectWidht, int re
 
 QPointF NodesListFromFile::getPosition(int nodeNumber) const
 {
-    int xOfRow = 0, yOfCol = 0;
+    //Cause cols on the grid = x coordinates, rows = y coordinates
+    int xOfCol = 0, yOfRow = 0;
     for (int i = NodePositionOnMatrix->size1() - 1; i >= 0; --i){
         for (int j = NodePositionOnMatrix->size2() - 1; j >= 0; --j){
             if (NodePositionOnMatrix->at_element(i, j) == nodeNumber){
-                xOfRow = i; yOfCol = j;
+                xOfCol = j; yOfRow = i;
                 goto coordinateFinded;
             }
         }
     }
 coordinateFinded:
-    return QPointF(cellWidth_ * (xOfRow + 0.5), cellHeigth_ * (yOfCol + 0.5));
+    return QPointF(cellWidth_ * (xOfCol + 0.5), cellHeigth_ * (yOfRow + 0.5));
 }
 
 
