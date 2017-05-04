@@ -5,9 +5,7 @@ GraphWidget::GraphWidget(QWidget *parent) :
 {}
 
 GraphWidget::~GraphWidget()
-{
-    delete Nodes;
-}
+{}
 
 void GraphWidget::resizeEvent(QResizeEvent *event)
 {
@@ -75,9 +73,8 @@ void GraphWidget::paintEvent(QPaintEvent *event)
 
 void GraphWidget::openFile(QString filename)
 {
-    delete Nodes;
     try {
-        Nodes = new NodesListFromFile(filename.toStdString(), this->size().width(), this->size().height());
+        Nodes = std::make_unique<NodesListFromFile>(filename.toStdString(), this->size().width(), this->size().height());
     } catch (BadFileError) {
         emit cantReadFileWithMatrix();
         return;

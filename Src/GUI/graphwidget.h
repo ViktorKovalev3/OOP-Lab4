@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPainter>
 #include <QResizeEvent>
+#include <memory>
 #include "GraphFromFile/nodeslist.h"
 
 class GraphWidget : public QWidget
@@ -20,7 +21,7 @@ protected:
     void resizeEvent(QResizeEvent *event);
     void paintEvent (QPaintEvent *event);
 private:
-    NodesListFromFile* Nodes = nullptr;
+    unique_ptr<NodesListFromFile> Nodes;
 };
 
 #endif // GRAPHWIDGET_H
