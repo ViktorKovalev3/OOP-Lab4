@@ -14,13 +14,15 @@ TEMPLATE = app
 HEADERS += \
     GraphFromFile/MatrixFromFile/matrix.h \
     GUI/mainwindow.h \
-    GraphFromFile/nodeslist.h
+    GraphFromFile/nodeslist.h \
+    GUI/graphwidget.h
 
 SOURCES += \
     GraphFromFile/MatrixFromFile/matrix.cpp \
     GUI/mainwindow.cpp \
     main.cpp \
-    GraphFromFile/nodeslist.cpp
+    GraphFromFile/nodeslist.cpp \
+    GUI/graphwidget.cpp
 
 FORMS    += GUI/mainwindow.ui
 
