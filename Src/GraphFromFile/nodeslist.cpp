@@ -10,17 +10,20 @@ NodesListFromFile::NodesListFromFile(std::string filename, int rectWidht, int re
 QPointF NodesListFromFile::getPosition(int nodeNumber) const
 {
     //Cause cols on the grid = x coordinates, rows = y coordinates
-    int xOfCol = 0, yOfRow = 0;
+    int xOfCol = -1, yOfRow = -1;
     for (int i = NodePositionOnMatrix->size1() - 1; i >= 0; --i){
         for (int j = NodePositionOnMatrix->size2() - 1; j >= 0; --j){
             if (NodePositionOnMatrix->at_element(i, j) == nodeNumber){
                 xOfCol = j; yOfRow = i;
-                goto coordinateFinded;
+                goto coordinateFindEnded;
             }
         }
     }
-coordinateFinded:
-    return QPointF(cellWidth_ * (xOfCol + 0.5), cellHeigth_ * (yOfRow + 0.5));
+coordinateFindEnded:
+    if (xOfCol == -1 || yOfRow == -1)
+        return QPointF(0.0, 0.0);
+    else
+        return QPointF(cellWidth_ * (xOfCol + 0.5), cellHeigth_ * (yOfRow + 0.5));
 }
 
 
@@ -43,8 +46,8 @@ void NodesListFromFile::setNewFile(std::string filename)
 
 void NodesListFromFile::calculateNodeRadius()
 {
-    int numOfGridRows = AdjacencyMatrix->size1();
-    int numOfGridCols = AdjacencyMatrix->size2();
+    int numOfGridRows = NodePositionOnMatrix->size1();
+    int numOfGridCols = NodePositionOnMatrix->size2();
 
     cellWidth_ = rectWidht_   / numOfGridCols;
     cellHeigth_ = rectHeigth_ / numOfGridRows;
