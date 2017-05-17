@@ -15,14 +15,18 @@ HEADERS += \
     GraphFromFile/MatrixFromFile/matrix.h \
     GUI/mainwindow.h \
     GraphFromFile/nodeslist.h \
-    GUI/graphwidget.h
+    GUI/graphwidget.h \
+    GUI/edge.h \
+    GUI/node.h
 
 SOURCES += \
     GraphFromFile/MatrixFromFile/matrix.cpp \
     GUI/mainwindow.cpp \
     main.cpp \
     GraphFromFile/nodeslist.cpp \
-    GUI/graphwidget.cpp
+    GUI/graphwidget.cpp \
+    GUI/edge.cpp \
+    GUI/node.cpp
 
 FORMS    += GUI/mainwindow.ui
 
