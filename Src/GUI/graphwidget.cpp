@@ -65,6 +65,10 @@ void GraphWidget::paintEvent(QPaintEvent *event)
     for(int i = 0;  i < numOfNodes; ++i){
         tmpPosition = Nodes->getPosition(i);
         if (!tmpPosition.isNull()){
+            if (!Nodes->isConnected(i, i))
+                painter.setBrush(QBrush(Qt::white, Qt::SolidPattern));
+            else
+                painter.setBrush(QBrush(Qt::yellow, Qt::SolidPattern));
             painter.drawEllipse(tmpPosition, radius, radius);
             painter.drawText(tmpPosition, QString::number(i));
         }
